@@ -1,0 +1,11 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 834826793883.dkr.ecr.us-east-2.amazonaws.com
+  build:
+    commands:
+      - docker build -t trivia-backend .
+      - docker tag trivia-backend:latest 834826793883.dkr.ecr.us-east-2.amazonaws.com/trivia-backend:latest
+      - docker push 834826793883.dkr.ecr.us-east-2.amazonaws.com/trivia-backend:latest
